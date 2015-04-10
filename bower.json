@@ -1,0 +1,13 @@
+{
+  "name": "Suspicious",
+  "version": "1.0.0",
+  "main": "assets/css/style.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "phaser": "~2.3.0"
+  },
+  "devDependencies": {}
+}
