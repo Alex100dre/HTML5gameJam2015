@@ -1,13 +1,15 @@
-app.ui = {
-      preload: function () {
-        app.core.people.preload();
+app.ui.score = {
+    /* ======================================PRELOAD=================================== */
+    preload: function () {
+
     },
 
     /* ======================================CREATE=================================== */
     create: function () {
-        this.score.create();
+    	// The score
+        scoreString = 'Score : ';
+        app.data.scoreText = game.add.text(10, 10, scoreString + app.data.score, { font: '34px Arial', fill: '#000' });
     },
-
     /* ======================================UPDATE=================================== */
     update: function () {
 
@@ -16,7 +18,7 @@ app.ui = {
     /* ======================================RENDER=================================== */
     render: function () {
         //Debugging
-        if (app.data.enableDebugging) {
+        if (app.data.settings.enableDebugging) {
            
         }
 

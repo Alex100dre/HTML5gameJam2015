@@ -17,7 +17,7 @@ app.core.people = {
     },
     peopleSelected: function (people) {
         app.data.score += 10;
-
+        app.data.scoreText.text = 'Score : '+app.data.score;
         console.log(app.data.score);
         people.frame = 1;
         
