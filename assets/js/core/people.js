@@ -3,10 +3,13 @@ app.core.people = {
     preload: function () {
         console.log(window);
         // Spritesheet
-        game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 212,396);
-        game.load.spritesheet('people1', 'assets/img/sprites/people/1.png', 212,396);
-        game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 212,396);
-        game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 212,396);
+        game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 483,760);
+        game.load.spritesheet('people1', 'assets/img/sprites/people/1.png', 486,821);
+        game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 437,709);
+        game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 484,766);
+        game.load.spritesheet('people4', 'assets/img/sprites/people/4.png', 539,694);
+        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,413);
+        game.load.spritesheet('people6', 'assets/img/sprites/people/6.png', 499,852);
     },
 
     /* ======================================CREATE=================================== */
@@ -73,7 +76,7 @@ app.core.people = {
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
 
-            randomSprite = Math.floor((Math.random() * 4) + 0); ; 
+            randomSprite = Math.floor((Math.random() * 7) + 0); ; 
 
             console.log(randomSprite);
 
@@ -82,6 +85,10 @@ app.core.people = {
             people.position.y  = game.world.height-people.height;
             people.position.x  = game.world.width*.5-people.width*i;
 
+            people.animations.add('iddle', [0,1,2]);
+            people.animations.add('good', [3,4,5]);
+            people.animations.add('bad', [6,7,8]);
+
             people.isEvil = Math.random()<.5 ? true :false; 
 
             console.log(people.isEvil)
@@ -89,6 +96,10 @@ app.core.people = {
             people.inputEnabled = true;
 
             people.input.useHandCursor = true;
+
+            people.animations.play('iddle', 5, true);
+
+            people.animations
 
             people.events.onInputDown.add(this.peopleSelected,this);
 
@@ -102,7 +113,7 @@ app.core.people = {
 		console.log(game.time.now - this.lastCreate);
 		if( game.time.now - this.lastCreate > 3000){
 			this.addPeoples();
-			app.data.PeopleWaves++;
+			app.data.peopleWaves++;
 		}
 	}
 
