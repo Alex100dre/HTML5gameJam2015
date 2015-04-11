@@ -6,6 +6,7 @@ app.data = {
     peopleList : [],
     score : 0,
     scoreText : null,
+    playerText: null,
     lvl : 1,
     timePeoples : 2,
     peopleWaves : 0,
