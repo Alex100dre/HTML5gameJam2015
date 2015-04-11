@@ -11,7 +11,7 @@ app.ui.menu = {
     },
 
     create: function(){
-    	button = game.add.button(game.world.centerX - 95, 460, 'btn0', app.ui.menu.actionOnClick, this, 2, 1, 0);
+    	button = game.add.button(game.world.centerX - 256, game.world.centerY-100, 'btn0', app.ui.menu.actionOnClick, this, 2, 1, 0);
     	button.name = 'play';
     	button.input.useHandCursor = true;
     },

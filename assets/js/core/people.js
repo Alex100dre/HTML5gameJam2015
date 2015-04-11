@@ -10,6 +10,11 @@ app.core.people = {
         game.load.spritesheet('people4', 'assets/img/sprites/people/4.png', 539,694);
         game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,413);
         game.load.spritesheet('people6', 'assets/img/sprites/people/6.png', 499,852);
+        game.load.spritesheet('people7', 'assets/img/sprites/people/7.png', 609,825);
+        game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
+        game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,785);
+        game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 637,1012);
+        game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 604,1068);
     },
 
     /* ======================================CREATE=================================== */
@@ -62,6 +67,7 @@ app.core.people = {
     	if(game.time.now - this.lastCreate > 1000){
     		console.log('toto');
     		app.data.peopleGroup.forEach(function(people) {
+    			// if(animPersonality)
     			people.isEvil ? people.animations.play('bad') : people.animations.play('good');
     		});
     	}
@@ -98,9 +104,6 @@ app.core.people = {
             // random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-
-            
-
             //console.log(randomSprite);
 
             if (i == 0) {
@@ -119,8 +122,22 @@ app.core.people = {
 
             
             //people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
-            people.position.y  = game.world.height-people.height;
-            people.position.x  = game.world.width*.5-people.width*i;
+
+   //          var scalex = (game.camera.width - people.width/4)/people.width;
+			// var scaley = (game.camera.height - people.height/4)/people.height;
+			// people.scale.setTo(scalex, scaley);
+
+			// responsive size of people
+			// var pHeight = game.camera.height > 360 ? game.camera.height*.5 : game.camera.height;
+			var pHeight = window.innerHeight>500 ? game.camera.height/1.6 : game.camera.height/1.2;
+
+			var pWidth = (people.width * pHeight)/people.height;
+
+			people.width = pWidth; 
+			people.height = pHeight;
+
+			people.position.y = game.world.height-people.height;
+			people.position.x = game.world.width*.5-people.width*i;
 
             people.animations.add('idle', [0,1,2]);
             people.animations.add('good', [3,4,5]);
