@@ -43,7 +43,12 @@ app.core.people = {
     },
     /* ======================================UPDATE=================================== */
     update: function () {
-
+    	if(game.time.now - this.lastCreate > 1000){
+    		console.log('toto');
+    		app.data.peopleGroup.forEach(function(people) {
+    			people.isEvil ? people.animations.play('bad') : people.animations.play('good');
+    		});
+    	}
     },
 
     /* ======================================RENDER=================================== */
@@ -76,7 +81,7 @@ app.core.people = {
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
 
-            randomSprite = Math.floor((Math.random() * 7) + 0); ; 
+            randomSprite = Math.floor((Math.random() * 7) ); ; 
 
             console.log(randomSprite);
 
@@ -85,7 +90,7 @@ app.core.people = {
             people.position.y  = game.world.height-people.height;
             people.position.x  = game.world.width*.5-people.width*i;
 
-            people.animations.add('iddle', [0,1,2]);
+            people.animations.add('idle', [0,1,2]);
             people.animations.add('good', [3,4,5]);
             people.animations.add('bad', [6,7,8]);
 
@@ -96,10 +101,8 @@ app.core.people = {
             people.inputEnabled = true;
 
             people.input.useHandCursor = true;
-
-            people.animations.play('iddle', 5, true);
-
-            people.animations
+            // play the idle
+            var idleAnime = people.animations.play('idle', utils.randomIntFromInterval(4,7), true);
 
             people.events.onInputDown.add(this.peopleSelected,this);
 
@@ -110,7 +113,7 @@ app.core.people = {
 	nextPeoples : function(){
 		console.log('hey as-tu vu les quenouilles !');
 		app.data.peopleGroup.removeChildren();
-		console.log(game.time.now - this.lastCreate);
+		// console.log(game.time.now - this.lastCreate);
 		if( game.time.now - this.lastCreate > 3000){
 			this.addPeoples();
 			app.data.peopleWaves++;

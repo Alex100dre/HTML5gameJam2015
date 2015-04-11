@@ -1,11 +1,5 @@
-(function (Phaser, app) {
-    'use strict';
-
-    var utils = {
-        init : function () {
-        }
-    };
-
-    window.app.utils = utils;
-
-}(Phaser, app));
+var utils = {
+    randomIntFromInterval : function(min,max) {
+        return Math.floor(Math.random()*(max-min+1)+min);
+    }
+};
