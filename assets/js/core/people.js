@@ -24,7 +24,7 @@ app.core.people = {
         console.log(app.data.score);
         people.frame = 1;
 
-        if (!people.isEvil) {
+        if (people.isEvil) {
 
             app.data.score += 10;
 
@@ -70,7 +70,12 @@ app.core.people = {
 			// random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
 			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
 			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
+
+            randomSprite = Math.floor((Math.random() * 3) + 0); ; 
+
+            console.log(randomSprite);
+
+			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSprite );
 			people.position.y  = game.world.height-people.height;
 			people.position.x  = game.world.width*.5-people.width*i;
 
