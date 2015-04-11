@@ -15,7 +15,13 @@ app.core.people = {
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
     },
+    peopleSelected: function (people) {
+        app.data.score += 10;
 
+        console.log(app.data.score);
+        people.frame = 1;
+        
+    },
     /* ======================================UPDATE=================================== */
     update: function () {
 
@@ -53,6 +59,13 @@ app.core.people = {
 			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
 			people.position.y  = game.world.height-people.height;
 			people.position.x  = game.world.width*.5-people.width*i;
+
+            people.inputEnabled = true;
+
+            people.input.useHandCursor = true;
+
+            people.events.onInputDown.add(this.peopleSelected,this);
+
 		}
 		this.lastCreate = game.time.now;
 	},
