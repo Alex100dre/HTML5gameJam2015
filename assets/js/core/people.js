@@ -1,9 +1,12 @@
 app.core.people = {
     /* ======================================PRELOAD=================================== */
     preload: function () {
-    	console.log(window);
-    	// Spritesheet
-    	game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 212,396);
+        console.log(window);
+        // Spritesheet
+        game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 212,396);
+        game.load.spritesheet('people1', 'assets/img/sprites/people/1.png', 212,396);
+        game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 212,396);
+        game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 212,396);
     },
 
     /* ======================================CREATE=================================== */
@@ -29,7 +32,7 @@ app.core.people = {
             app.data.score -= 10;
             people.frame = 2;
             if(app.data.score < 0){
-            	app.data.score = 0;
+                app.data.score = 0;
             }
         };
         app.data.scoreText.text = 'Score : '+app.data.score;
@@ -54,24 +57,30 @@ app.core.people = {
     },
 
     addPeoples: function(){
-    	var peopleArea 		 = app.data.peopleArea,
-			peopleAreaWidth  = peopleArea.width,
-			peopleAreaHeight = peopleArea.height,
-			peopleNb		 = /*Math.floor(Math.random() * 6) + 1*/ 2
-			people = null,
+        var peopleArea       = app.data.peopleArea,
+            peopleAreaWidth  = peopleArea.width,
+            peopleAreaHeight = peopleArea.height,
+            peopleNb         = /*Math.floor(Math.random() * 6) + 1*/ 2
+            people = null,
 
-			random_height    = 0,
-			random_width     = 0;
+            random_height    = 0,
+            random_width     = 0;
 
-		console.log(peopleNb);
-		for(var i = 0; i<peopleNb; i++ ){
-			// random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
-			// random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
-			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
-			people.position.y  = game.world.height-people.height;
-			people.position.x  = game.world.width*.5-people.width*i;
+        console.log(peopleNb);
+        for(var i = 0; i<peopleNb; i++ ){
+            // random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
+            // random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
+            // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
+            // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
+
+            randomSprite = Math.floor((Math.random() * 4) + 0); ; 
+
+            console.log(randomSprite);
+
+            people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSprite );
+            //people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
+            people.position.y  = game.world.height-people.height;
+            people.position.x  = game.world.width*.5-people.width*i;
 
             people.isEvil = Math.random()<.5 ? true :false; 
 
@@ -96,4 +105,5 @@ app.core.people = {
 			app.data.PeopleWaves++;
 		}
 	}
+
 };
