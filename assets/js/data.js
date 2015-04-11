@@ -5,6 +5,7 @@ app.data = {
     },
     peopleList : [],
     score : 0,
+    scoreText : null,
     lvl : 1,
     timeLvl : 5,
     peopleArea : {
