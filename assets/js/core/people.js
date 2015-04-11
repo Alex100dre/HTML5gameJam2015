@@ -14,12 +14,26 @@ app.core.people = {
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
+
+        
+       
     },
     peopleSelected: function (people) {
-        app.data.score += 10;
+        
 
         console.log(app.data.score);
         people.frame = 1;
+
+        if (people.isEvil) {
+
+            app.data.score += 10;
+
+        }else{
+
+            app.data.score += -10;
+
+        };
+
         
     },
     /* ======================================UPDATE=================================== */
@@ -59,6 +73,10 @@ app.core.people = {
 			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
 			people.position.y  = game.world.height-people.height;
 			people.position.x  = game.world.width*.5-people.width*i;
+
+            people.isEvil = Math.random()<.5 ? true :false; 
+
+            console.log(people.isEvil)
 
             people.inputEnabled = true;
 
