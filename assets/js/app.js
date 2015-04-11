@@ -33,10 +33,17 @@
                 create : appCore.create,
                 update : appCore.update,
                 render : appCore.render
+            };
+            var nextlvl = {
+                preload : appCore.preload,
+                create : appCore.create,
+                update : appCore.update,
+                render : appCore.render
             }
 
             game.state.add('menu', menu);
             game.state.add('play', play);
+            game.state.add('nextlvl', nextlvl);
             game.state.start('menu');
         }
     };

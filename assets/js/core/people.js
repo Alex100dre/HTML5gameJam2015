@@ -21,28 +21,44 @@ app.core.people = {
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timePeoples, this.nextPeoples, this);
 
+        app.data.player.hp == 3
+
+        console.log("player hp"+app.data.player.hp);
+
         
        
     },
     peopleSelected: function (people) {
         //app.data.score += 10;
-        console.log(people.isEvil);
-
+        //console.log(people.isEvil);
+        //console.log("player hp"+player.hp);
         if (people.isEvil === true) {
             app.data.score += 10;
             people.frame = 1;
+
         }else{
-            app.data.score -= 10;
+            if (app.data.player.hp == 1) {
+                game.state.start('menu');
+            };
+            app.data.player.hp -= 1;
+            //app.data.score -= 10;
             people.frame = 2;
             if(app.data.score < 0){
                 app.data.score = 0;
             }
         };
-        app.data.scoreText.text = 'Score : '+app.data.score;
-        
+        people.inputEnabled = false;
+
+        this.updateScore;
+
+        people.destroy();
+
+
     },
     /* ======================================UPDATE=================================== */
     update: function () {
+        this.updateScore;
+        
     	if(game.time.now - this.lastCreate > 1000){
     		console.log('toto');
     		app.data.peopleGroup.forEach(function(people) {
@@ -74,18 +90,34 @@ app.core.people = {
             random_height    = 0,
             random_width     = 0;
 
-        console.log(peopleNb);
+            randomSpritePrev = Math.floor((Math.random() * 7) ); 
+            randomSpriteNext = Math.floor((Math.random() * 7) ); 
+
         for(var i = 0; i<peopleNb; i++ ){
             // random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
             // random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
             // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
 
-            randomSprite = Math.floor((Math.random() * 7) ); ; 
+            
 
-            console.log(randomSprite);
+            //console.log(randomSprite);
 
-            people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSprite );
+            if (i == 0) {
+
+                people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSpritePrev );
+
+            }else {
+                if (randomSpritePrev == randomSpriteNext) {
+
+                    randomSpriteNext = Math.floor((Math.random() * 7) );
+
+                };
+                people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSpriteNext );
+
+            };
+
+            
             //people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
             people.position.y  = game.world.height-people.height;
             people.position.x  = game.world.width*.5-people.width*i;
@@ -110,14 +142,44 @@ app.core.people = {
 		this.lastCreate = game.time.now;
 	},
 
+    updateScore : function(){
+        app.data.scoreText.text = 'Score : '+app.data.score;
+        //app.data.scoreText.text += '</br>Hp : '+app.data.player.hp;   
+        app.data.playerText.text = 'HP : '+app.data.player.hp;
+    },
+
 	nextPeoples : function(){
 		console.log('hey as-tu vu les quenouilles !');
+
+        app.data.peopleGroup.forEach(function(people) {
+
+            if(people.isEvil){
+                app.data.score -= 10;
+            }
+            if(app.data.score < 0){
+                app.data.score = 0;
+            }
+        });
+
+        
+
 		app.data.peopleGroup.removeChildren();
+        //if (app.data.peopleGroup.isEvil === true) {
+         //   app.data.score -= 10;
+        //}
+
 		// console.log(game.time.now - this.lastCreate);
 		if( game.time.now - this.lastCreate > 3000){
 			this.addPeoples();
 			app.data.peopleWaves++;
 		}
+
+        if (app.data.peopleWaves > 2){
+
+           game.state.start('nextlvl');
+            
+        }
+        console.log('nb waves'+app.data.peopleWaves);
 	}
 
 };
