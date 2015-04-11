@@ -11,6 +11,7 @@ app.core.people = {
     	// game.time.events.repeat(Phaser.Timer.SECOND * 4, addsprite, this);
     	// app.data.game.add.sprite(0,0,'people0');
     	// this.addSprite();
+    	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
     	game.time.events.add(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
     },
@@ -34,7 +35,6 @@ app.core.people = {
     },
 
     addPeoples: function(){
-    	console.log('tototo')
     	var peopleArea 		 = app.data.peopleArea,
 			peopleAreaWidth  = peopleArea.width,
 			peopleAreaHeight = peopleArea.height,
@@ -47,11 +47,18 @@ app.core.people = {
 		for(var i = 0; i<peopleNb; i++ ){
 			random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
 			random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
-			app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-			app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
+			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
+			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
+			app.data.peopleGroup.create(game.world.randomX, game.world.randomY, 'people0');
 		}
 	},
+
 	nextLvl : function(){
 		console.log('hey as-tu vu les quenoille !');
+		app.data.peopleGroup.removeChildren();
+		// for(var i = 0; i<app.data.peopleList.length; i++){
+		// 	app.data.peopleGroup.removeChildren();
+		// 	console.log('hey as-tu vu les quenoille !');
+		// }
 	}
 };
