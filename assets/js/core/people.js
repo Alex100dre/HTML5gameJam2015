@@ -20,20 +20,19 @@ app.core.people = {
     },
     peopleSelected: function (people) {
         //app.data.score += 10;
-        app.data.scoreText.text = 'Score : '+app.data.score;
-        console.log(app.data.score);
-        people.frame = 1;
+        console.log(people.isEvil);
 
-        if (!people.isEvil) {
-
+        if (people.isEvil === true) {
             app.data.score += 10;
-
+            people.frame = 1;
         }else{
-
-            app.data.score += -10;
-
+            app.data.score -= 10;
+            people.frame = 2;
+            if(app.data.score < 0){
+            	app.data.score = 0;
+            }
         };
-
+        app.data.scoreText.text = 'Score : '+app.data.score;
         
     },
     /* ======================================UPDATE=================================== */
