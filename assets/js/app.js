@@ -21,15 +21,22 @@
             );
             console.log(game);
 
-            game.state.add(
-                'play',
-                {
-                    preload : appCore.preload,
-                    create : appCore.create,
-                    update : appCore.update,
-                    render : appCore.render
-                }
-            );
-            game.state.start('play');
+            var menu = {
+                preload: app.ui.menu.preload, 
+                create: app.ui.menu.create, 
+                update: app.ui.menu.update,
+                render: app.ui.menu.render
+            };
+
+            var play = {
+                preload : appCore.preload,
+                create : appCore.create,
+                update : appCore.update,
+                render : appCore.render
+            }
+
+            game.state.add('menu', menu);
+            game.state.add('play', play);
+            game.state.start('menu');
         }
     };

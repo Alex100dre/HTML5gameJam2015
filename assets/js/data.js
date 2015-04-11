@@ -7,7 +7,8 @@ app.data = {
     score : 0,
     scoreText : null,
     lvl : 1,
-    timeLvl : 5,
+    timePeoples : 2,
+    peopleWaves : 0,
     peopleArea : {
     	width : 600,
     	height : 800

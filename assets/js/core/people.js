@@ -13,7 +13,7 @@ app.core.people = {
     	// this.addSprite();
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
-    	game.time.events.loop(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
+    	game.time.events.loop(Phaser.Timer.SECOND * app.data.timePeoples, this.nextPeoples, this);
 
         
        
@@ -87,18 +87,13 @@ app.core.people = {
 		this.lastCreate = game.time.now;
 	},
 
-	nextLvl : function(){
-		console.log('hey as-tu vu les quenoille !');
+	nextPeoples : function(){
+		console.log('hey as-tu vu les quenouilles !');
 		app.data.peopleGroup.removeChildren();
 		console.log(game.time.now - this.lastCreate);
-		if( game.time.now - this.lastCreate > 10000){
+		if( game.time.now - this.lastCreate > 3000){
 			this.addPeoples();
+			app.data.PeopleWaves++;
 		}
-		// this.addPeoples();
-		// var timer = game.time.events.repeat(Phaser.Timer.SECOND * app.data.timeLvl, 1, this.addPeoples, this);
-		// for(var i = 0; i<app.data.peopleList.length; i++){
-		// 	app.data.peopleGroup.removeChildren();
-		// 	console.log('hey as-tu vu les quenoille !');
-		// }
 	}
 };
