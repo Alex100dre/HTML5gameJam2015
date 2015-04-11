@@ -6,7 +6,7 @@ app.data = {
     peopleList : [],
     score : 0,
     lvl : 1,
-    timeLvl : 2,
+    timeLvl : 5,
     peopleArea : {
     	width : 600,
     	height : 800

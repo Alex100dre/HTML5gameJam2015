@@ -3,7 +3,7 @@ app.core.people = {
     preload: function () {
     	console.log(window);
     	// Spritesheet
-    	game.load.image('people0', 'assets/img/sprites/people/0.png');
+    	game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 212,396);
     },
 
     /* ======================================CREATE=================================== */
@@ -13,7 +13,7 @@ app.core.people = {
     	// this.addSprite();
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
-    	game.time.events.add(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
+    	game.time.events.loop(Phaser.Timer.SECOND * app.data.timeLvl, this.nextLvl, this);
     },
 
     /* ======================================UPDATE=================================== */
@@ -38,24 +38,34 @@ app.core.people = {
     	var peopleArea 		 = app.data.peopleArea,
 			peopleAreaWidth  = peopleArea.width,
 			peopleAreaHeight = peopleArea.height,
-			peopleNb		 = Math.floor(Math.random() * 6) + 1
+			peopleNb		 = /*Math.floor(Math.random() * 6) + 1*/ 2
+			people = null,
 
 			random_height    = 0,
 			random_width     = 0;
 
 		console.log(peopleNb);
 		for(var i = 0; i<peopleNb; i++ ){
-			random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
-			random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
+			// random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
+			// random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
 			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
 			// app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-			app.data.peopleGroup.create(game.world.randomX, game.world.randomY, 'people0');
+			people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
+			people.position.y  = game.world.height-people.height;
+			people.position.x  = game.world.width*.5-people.width*i;
 		}
+		this.lastCreate = game.time.now;
 	},
 
 	nextLvl : function(){
 		console.log('hey as-tu vu les quenoille !');
 		app.data.peopleGroup.removeChildren();
+		console.log(game.time.now - this.lastCreate);
+		if( game.time.now - this.lastCreate > 10000){
+			this.addPeoples();
+		}
+		// this.addPeoples();
+		// var timer = game.time.events.repeat(Phaser.Timer.SECOND * app.data.timeLvl, 1, this.addPeoples, this);
 		// for(var i = 0; i<app.data.peopleList.length; i++){
 		// 	app.data.peopleGroup.removeChildren();
 		// 	console.log('hey as-tu vu les quenoille !');
