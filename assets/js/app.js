@@ -1,15 +1,13 @@
-(function (Phaser) {
-    'use strict';
-
     var app = {
         init : function () {
             console.log('Jeu initialisé.');
 
-            var transparent = false;
-            var antialias = true;
+            var transparent = false,
+                antialias = true,
+                appCore = app.core;
 
             // Create of the Phaser game instance OUYA RES 1280 720
-            var game = new Phaser.Game(
+            game = new Phaser.Game(
                 window.innerWidth, window.innerHeight,
                 (app.data.enableDebugging ? Phaser.CANVAS : Phaser.AUTO),
                 'game-div',
@@ -19,10 +17,19 @@
                 // render: app.core.render
                 // },
                 transparent,
-                antialias);
-            }
+                antialias
+            );
+            console.log(game);
+
+            game.state.add(
+                'play',
+                {
+                    preload : appCore.preload,
+                    create : appCore.create,
+                    update : appCore.update,
+                    render : appCore.render
+                }
+            );
+            game.state.start('play');
+        }
     };
-
-    window.app = app;
-
-}(Phaser));

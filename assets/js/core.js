@@ -1,12 +1,29 @@
-(function (Phaser, app) {
-    'use strict';
+app.core = {
+    /* ======================================PRELOAD=================================== */
+    preload: function () {
+        app.core.people.preload();
+    },
 
-    var core = {
-        init : function () {
-          console.log('core initialisé.');
+    /* ======================================CREATE=================================== */
+    create: function () {
+       app.core.people.create();
+    },
+
+    /* ======================================UPDATE=================================== */
+    update: function () {
+
+    },
+
+    /* ======================================RENDER=================================== */
+    render: function () {
+        //Debugging
+        if (app.data.enableDebugging) {
+           
         }
-    };
 
-    window.app.core = core;
-
-}(Phaser, app));
+        //Pause
+        if(app.data.isPaused){
+          
+        }
+    }
+};
