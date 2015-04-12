@@ -1,6 +1,8 @@
 app.core.people = {
     /* ======================================PRELOAD=================================== */
     preload: function () {
+    	game.load.image('metroOpen', 'assets/img/sprites/scene/metro_ouvert.png');
+    	game.load.image('metroClose', 'assets/img/sprites/scene/metro.png');
         // Spritesheet
         game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 483,759);
         game.load.spritesheet('people1', 'assets/img/sprites/people/1.png', 486,821);
@@ -13,7 +15,7 @@ app.core.people = {
         game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
         game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,784);
         game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 634,1013); // homme d'affaire
-        game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 604,1068);
+        game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 634,1013);
         game.load.spritesheet('people12', 'assets/img/sprites/people/12.png', 589,849);
 
         // sound
@@ -27,20 +29,28 @@ app.core.people = {
     /* ======================================CREATE=================================== */
     create: function () {
 
+    	bg=game.add.sprite(0,0,'metroOpen');
 
+        var bHeight = game.camera.height;
+
+        var bWidth = (bg.width * bHeight)/bg.height;
+
+        bg.width = bWidth;
+        bg.height = bHeight;
+        bg.x = game.canvas.width*.5-bg.width*.5;
 
         app.data.sounds = {
             // jump    : game.add.audio('jump'),
 
-            bip   : game.add.audio('bip'),
-            buzzer1  : game.add.audio('buzzer1'),
-            buzzer2  : game.add.audio('buzzer2'),
-            ambiance : game.add.audio('ambiance'),
-            ambiance2  : game.add.audio('ambiance2'),
-            ambiance3  : game.add.audio('ambiance3'),
-            explosion      : game.add.audio('explosion'),
-            explosion3      : game.add.audio('explosion3'),
-            gentil1      : game.add.audio('gentil1'),
+			bip        : game.add.audio('bip'),
+			buzzer1    : game.add.audio('buzzer1'),
+			buzzer2    : game.add.audio('buzzer2'),
+			ambiance   : game.add.audio('ambiance'),
+			ambiance2  : game.add.audio('ambiance2'),
+			ambiance3  : game.add.audio('ambiance3'),
+			explosion  : game.add.audio('explosion'),
+			explosion3 : game.add.audio('explosion3'),
+			gentil1    : game.add.audio('gentil1'),
 
         };
 
@@ -158,7 +168,7 @@ app.core.people = {
                 people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSpriteNext );
 
             };
-
+            //Size of people responsive
 			var pHeight = window.innerHeight>500 ? game.camera.height/1.6 : game.camera.height/1.2;
 
 			var pWidth = (people.width * pHeight)/people.height;
