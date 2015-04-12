@@ -14,10 +14,42 @@ app.core.people = {
         game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,785);
         game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 637,1012);
         game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 604,1068);
+
+        // sound
+        game.load.audio('bip',  ['assets/audio/bip.mp3']);
+        game.load.audio('buzzer1',  ['assets/audio/buzzer01.mp3']);
+        game.load.audio('buzzer2',  ['assets/audio/buzzer02.mp3']);
+        //game.load.audio('ambiance',  ['assets/audio/ambiance.mp3']);
+        game.load.audio('ambiance2',  ['assets/audio/ambiance2.mp3']);
+        game.load.audio('ambiance3',  ['assets/audio/ambiance3.mp3']);
+        game.load.audio('explosion',  ['assets/audio/explosion.mp3']);
+        game.load.audio('explosion3',  ['assets/audio/explosion3.mp3']);
+        game.load.audio('gentil1',  ['assets/audio/gentil1.mp3']);
     },
 
     /* ======================================CREATE=================================== */
     create: function () {
+
+
+
+        app.data.sounds = {
+            // jump    : game.add.audio('jump'),
+
+            bip   : game.add.audio('bip'),
+            buzzer1  : game.add.audio('buzzer1'),
+            buzzer2  : game.add.audio('buzzer2'),
+            ambiance : game.add.audio('ambiance'),
+            ambiance2  : game.add.audio('ambiance2'),
+            ambiance3  : game.add.audio('ambiance3'),
+            explosion      : game.add.audio('explosion'),
+            explosion3      : game.add.audio('explosion3'),
+            gentil1      : game.add.audio('gentil1'),
+
+        };
+
+        app.data.sounds.ambiance2.play('',0,1,true);
+
+
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timePeoples, this.nextPeoples, this);
@@ -37,6 +69,13 @@ app.core.people = {
 	                game.state.start('menu');
 	            };
 	            app.data.player.hp -= 1;
+                //
+                /*if(app.data.isPlayingTheme === false){
+                    app.data.isPlayingTheme = true;
+                    app.data.sounds.themeMenu.play('',0,1,true);
+                }*/
+
+                app.data.sounds.buzzer2.play('',0,1,false);
 	            //app.data.score -= 10;
 	            people.frame = 2;
 	            if(app.data.score < 0){
@@ -92,6 +131,7 @@ app.core.people = {
     },
 
     addPeoples: function(){
+
         var peopleArea       = app.data.peopleArea,
             peopleAreaWidth  = peopleArea.width,
             peopleAreaHeight = peopleArea.height,
@@ -158,6 +198,7 @@ app.core.people = {
 
             if(people.isEvil && !people.isClicked){
                 app.data.score -= 10;
+                app.data.sounds.explosion3.play('',0,1,false);
             }
             if(app.data.score < 0){
                 app.data.score = 0;
@@ -167,7 +208,7 @@ app.core.people = {
             var desapearAnim = game.add.tween(people).to( { alpha: 0 }, 1000, "Linear", true);
 
             desapearAnim.onComplete.add(function(){
-                people.destroy()
+                people.destroy();
             });
 
 
@@ -175,8 +216,10 @@ app.core.people = {
 
         
 		if( game.time.now - this.lastCreate > 3000){
+
 			this.addPeoples();
 			app.data.peopleWaves++;
+
 		}
 
         if (app.data.peopleWaves > 2){
