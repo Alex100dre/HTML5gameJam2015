@@ -64,6 +64,8 @@ app.core.people = {
 	        	console.log('clic gentil');
 	            if (app.data.player.hp === 1) {
 	                game.state.start('loose');
+                    app.data.player.hp = 4;
+                    app.data.score = 0;
 	            };
 	            app.data.player.hp -= 1;
                 //
