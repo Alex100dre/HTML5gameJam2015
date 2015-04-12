@@ -12,17 +12,14 @@ app.core.people = {
         game.load.spritesheet('people7', 'assets/img/sprites/people/7.png', 609,825);
         game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
         game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,784);
-        game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 637,1012);
+        game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 634,1013); // homme d'affaire
         game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 604,1068);
+        game.load.spritesheet('people12', 'assets/img/sprites/people/12.png', 589,849);
 
         // sound
-        game.load.audio('bip',  ['assets/audio/bip.mp3']);
-        game.load.audio('buzzer1',  ['assets/audio/buzzer01.mp3']);
         game.load.audio('buzzer2',  ['assets/audio/buzzer02.mp3']);
         //game.load.audio('ambiance',  ['assets/audio/ambiance.mp3']);
         game.load.audio('ambiance2',  ['assets/audio/ambiance2.mp3']);
-        game.load.audio('ambiance3',  ['assets/audio/ambiance3.mp3']);
-        game.load.audio('explosion',  ['assets/audio/explosion.mp3']);
         game.load.audio('explosion3',  ['assets/audio/explosion3.mp3']);
         game.load.audio('gentil1',  ['assets/audio/gentil1.mp3']);
     },
@@ -141,8 +138,8 @@ app.core.people = {
             random_height    = 0,
             random_width     = 0;
 
-            randomSpritePrev = Math.floor((Math.random() * 12) ); 
-            randomSpriteNext = Math.floor((Math.random() * 12) ); 
+            randomSpritePrev = Math.floor((Math.random() * app.data.nbSprites) ); 
+            randomSpriteNext = Math.floor((Math.random() * app.data.nbSprites) ); 
 
         for(var i = 0; i<peopleNb; i++ ){
 
@@ -153,7 +150,7 @@ app.core.people = {
             }else {
                 if (randomSpritePrev == randomSpriteNext) {
 
-                    randomSpriteNext = Math.floor((Math.random() * 12) );
+                    randomSpriteNext = Math.floor((Math.random() * app.data.nbSprites) );
 
                 };
                 people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSpriteNext );

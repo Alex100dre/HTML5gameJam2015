@@ -3,6 +3,7 @@ app.data = {
     player : {
     	hp : 3
     },
+    nbSprites : 13,
     peopleList : [],
     score : 0,
     scoreText : null,
