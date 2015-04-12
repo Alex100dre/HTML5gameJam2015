@@ -25,6 +25,7 @@ app.core.people = {
         game.load.audio('explosion',  ['assets/audio/explosion.mp3']);
         game.load.audio('explosion3',  ['assets/audio/explosion3.mp3']);
         game.load.audio('gentil1',  ['assets/audio/gentil1.mp3']);
+        game.load.audio('success',  ['assets/audio/Chime2.mp3']);
     },
 
     /* ======================================CREATE=================================== */
@@ -44,6 +45,7 @@ app.core.people = {
             explosion      : game.add.audio('explosion'),
             explosion3      : game.add.audio('explosion3'),
             gentil1      : game.add.audio('gentil1'),
+            success: game.add.audio('success'),
 
         };
 
@@ -59,6 +61,7 @@ app.core.people = {
         	if (people.isEvil === true) {
         		var gainedPoints = utils.randomIntFromInterval(10,20);
 	            app.data.score += gainedPoints;
+                app.data.sounds.success.play('',0,1,false);
 	            people.frame = 1;
 	            // var gainedPointsText = game.add.text(game.camera.width - 220,10 , '+ ' + gainedPoints, { font: '34px Arial', fill: 'cyan' });
 	            // gainedPointsText.alpha = 0;
