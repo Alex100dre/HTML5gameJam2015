@@ -8,7 +8,7 @@ app.core.people = {
         game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 437,709);
         game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 484,766);
         game.load.spritesheet('people4', 'assets/img/sprites/people/4.png', 539,694);
-        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,413);
+        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,414);
         game.load.spritesheet('people6', 'assets/img/sprites/people/6.png', 499,852);
         game.load.spritesheet('people7', 'assets/img/sprites/people/7.png', 609,825);
         game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
@@ -19,16 +19,11 @@ app.core.people = {
 
     /* ======================================CREATE=================================== */
     create: function () {
-    	// game.time.events.repeat(Phaser.Timer.SECOND * 4, addsprite, this);
-    	// app.data.game.add.sprite(0,0,'people0');
-    	// this.addSprite();
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timePeoples, this.nextPeoples, this);
 
-        app.data.player.hp == 3
-
-        console.log("player hp"+app.data.player.hp);
+        app.data.player.hp = 3
 
         
        
@@ -42,7 +37,7 @@ app.core.people = {
             people.frame = 1;
 
         }else{
-            if (app.data.player.hp == 1) {
+            if (app.data.player.hp === 1) {
                 game.state.start('menu');
             };
             app.data.player.hp -= 1;
