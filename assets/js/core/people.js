@@ -1,14 +1,13 @@
 app.core.people = {
     /* ======================================PRELOAD=================================== */
     preload: function () {
-        console.log(window);
         // Spritesheet
-        game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 483,760);
+        game.load.spritesheet('people0', 'assets/img/sprites/people/0.png', 483,759);
         game.load.spritesheet('people1', 'assets/img/sprites/people/1.png', 486,821);
         game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 437,709);
         game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 484,766);
         game.load.spritesheet('people4', 'assets/img/sprites/people/4.png', 539,694);
-        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,414);
+        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,413);
         game.load.spritesheet('people6', 'assets/img/sprites/people/6.png', 499,852);
         game.load.spritesheet('people7', 'assets/img/sprites/people/7.png', 609,825);
         game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
@@ -22,60 +21,59 @@ app.core.people = {
     	app.data.peopleGroup = game.add.group();
     	this.addPeoples();
     	game.time.events.loop(Phaser.Timer.SECOND * app.data.timePeoples, this.nextPeoples, this);
-
-        app.data.player.hp = 3
-
-        
-       
     },
     peopleSelected: function (people) {
-        //app.data.score += 10;
-        //console.log(people.isEvil);
-        //console.log("player hp"+player.hp);
-        if (people.isEvil === true) {
-            app.data.score += 10;
-            people.frame = 1;
-
-        }else{
-            if (app.data.player.hp === 1) {
-                game.state.start('menu');
-            };
-            app.data.player.hp -= 1;
-            //app.data.score -= 10;
-            people.frame = 2;
-            if(app.data.score < 0){
-                app.data.score = 0;
-            }
-        };
+        if(!people.isClicked){
+        	if (people.isEvil === true) {
+        		var gainedPoints = utils.randomIntFromInterval(10,20);
+	            app.data.score += gainedPoints;
+	            people.frame = 1;
+	            var gainedPointsText = game.add.text(game.camera.width - 220,10 , '+ ' + gainedPoints, { font: '34px Arial', fill: 'cyan' });
+	            gainedPointsText.alpha = 0;
+	            var tween = game.add.tween(gainedPointsText).to( { alpha: 1 }, 400, "Linear", true);
+	        }else{
+	        	console.log('clic gentil');
+	            if (app.data.player.hp === 1) {
+	                game.state.start('menu');
+	            };
+	            app.data.player.hp -= 1;
+	            //app.data.score -= 10;
+	            people.frame = 2;
+	            if(app.data.score < 0){
+	                app.data.score = 0;
+	            }
+	        };
+        }
         people.inputEnabled = false;
 
         people.alpha = 1;
 
-        var test = game.add.tween(people).to( { alpha: 0 }, 400, "Linear", true);
+        var killPeople = game.add.tween(people).to( { alpha: 0 }, 400, "Linear", true);
+        people.isClicked = true;
 
-        //console.log(people.destroy());
-
-        test.onComplete.add(function(){
+        killPeople.onComplete.add(function(){
             people.destroy()
         });
 
-
-
-        this.updateScore;
-
         //people.destroy();
-
 
     },
     /* ======================================UPDATE=================================== */
     update: function () {
-        this.updateScore;
-        
+        this.updateScore();
     	if(game.time.now - this.lastCreate > 1000){
-    		console.log('toto');
     		app.data.peopleGroup.forEach(function(people) {
-    			// if(animPersonality)
-    			people.isEvil ? people.animations.play('bad') : people.animations.play('good');
+    			if(!people.isActionned){
+    				// people.isEvil ? people.animations.play('bad') : people.animations.play('good');
+    				if( people.isEvil === true){
+    					console.log('%c BAD GUY ! ', 'background: red; font-weight:bold; padding:5px;');
+    					people.animations.play('bad');
+    				}else{
+    					console.log('%c GOOD GUY ! ', 'background: green; font-weight:bold; padding:5px;');
+    					people.animations.play('good');
+    				}
+    				people.isActionned=true;
+    			}
     		});
     	}
     },
@@ -107,11 +105,6 @@ app.core.people = {
             randomSpriteNext = Math.floor((Math.random() * 7) ); 
 
         for(var i = 0; i<peopleNb; i++ ){
-            // random_height = Math.floor((Math.random() * peopleAreaHeight) + 1);
-            // random_width  = Math.floor((Math.random() * peopleAreaWidth) + 1);
-            // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-            // app.data.peopleList[i] = game.add.sprite(random_height,random_width, 'people0');
-            //console.log(randomSprite);
 
             if (i == 0) {
 
@@ -127,15 +120,6 @@ app.core.people = {
 
             };
 
-            
-            //people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people0');
-
-   //          var scalex = (game.camera.width - people.width/4)/people.width;
-			// var scaley = (game.camera.height - people.height/4)/people.height;
-			// people.scale.setTo(scalex, scaley);
-
-			// responsive size of people
-			// var pHeight = game.camera.height > 360 ? game.camera.height*.5 : game.camera.height;
 			var pHeight = window.innerHeight>500 ? game.camera.height/1.6 : game.camera.height/1.2;
 
 			var pWidth = (people.width * pHeight)/people.height;
@@ -152,8 +136,6 @@ app.core.people = {
 
             people.isEvil = Math.random()<.5 ? true :false; 
 
-            console.log(people.isEvil)
-
             people.inputEnabled = true;
 
             people.input.useHandCursor = true;
@@ -167,17 +149,14 @@ app.core.people = {
 	},
 
     updateScore : function(){
-        app.data.scoreText.text = 'Score : '+app.data.score;
-        //app.data.scoreText.text += '</br>Hp : '+app.data.player.hp;   
+        app.data.scoreText.text = 'Score : '+app.data.score; 
         app.data.playerText.text = 'HP : '+app.data.player.hp;
     },
 
 	nextPeoples : function(){
-		console.log('hey as-tu vu les quenouilles !');
-
         app.data.peopleGroup.forEach(function(people) {
 
-            if(people.isEvil){
+            if(people.isEvil && !people.isClicked){
                 app.data.score -= 10;
             }
             if(app.data.score < 0){
@@ -185,27 +164,16 @@ app.core.people = {
             }
             people.alpha = 1;
 
-            var test1 = game.add.tween(people).to( { alpha: 0 }, 400, "Linear", true);
+            var desapearAnim = game.add.tween(people).to( { alpha: 0 }, 1000, "Linear", true);
 
-            //console.log(people.destroy());
-
-            test1.onComplete.add(function(){
+            desapearAnim.onComplete.add(function(){
                 people.destroy()
             });
-
-            //game.add.tween(people).to( { alpha: 0 }, 1000, "Linear", true);
 
 
         });
 
         
-
-		//app.data.peopleGroup.removeChildren();
-        //if (app.data.peopleGroup.isEvil === true) {
-         //   app.data.score -= 10;
-        //}
-
-		// console.log(game.time.now - this.lastCreate);
 		if( game.time.now - this.lastCreate > 3000){
 			this.addPeoples();
 			app.data.peopleWaves++;
@@ -213,10 +181,11 @@ app.core.people = {
 
         if (app.data.peopleWaves > 2){
 
-           game.state.start('nextlvl');
+           // game.state.start('nextlvl');
+           console.log('next lvl');
             
         }
-        console.log('nb waves'+app.data.peopleWaves);
+        console.log('nb waves >>>  '+app.data.peopleWaves);
 	}
 
 };
