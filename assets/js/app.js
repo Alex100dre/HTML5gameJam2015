@@ -26,6 +26,13 @@
                 create: app.ui.menu.create, 
                 update: app.ui.menu.update,
                 render: app.ui.menu.render
+            }; 
+
+            var loose = {
+                preload: app.ui.loose.preload, 
+                create: app.ui.loose.create, 
+                update: app.ui.loose.update,
+                render: app.ui.loose.render
             };
 
             var play = {
@@ -41,7 +48,9 @@
                 render : appCore.render
             }
 
+
             game.state.add('menu', menu);
+            game.state.add('loose', loose);
             game.state.add('play', play);
             game.state.add('nextlvl', nextlvl);
             game.state.start('menu');

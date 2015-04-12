@@ -7,11 +7,11 @@ app.core.people = {
         game.load.spritesheet('people2', 'assets/img/sprites/people/2.png', 437,709);
         game.load.spritesheet('people3', 'assets/img/sprites/people/3.png', 484,766);
         game.load.spritesheet('people4', 'assets/img/sprites/people/4.png', 539,694);
-        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 524,413);
+        game.load.spritesheet('people5', 'assets/img/sprites/people/5.png', 519,800); // petite fille
         game.load.spritesheet('people6', 'assets/img/sprites/people/6.png', 499,852);
         game.load.spritesheet('people7', 'assets/img/sprites/people/7.png', 609,825);
         game.load.spritesheet('people8', 'assets/img/sprites/people/8.png', 561,790);
-        game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,785);
+        game.load.spritesheet('people9', 'assets/img/sprites/people/9.png', 792,784);
         game.load.spritesheet('people10', 'assets/img/sprites/people/10.png', 637,1012);
         game.load.spritesheet('people11', 'assets/img/sprites/people/11.png', 604,1068);
 
@@ -60,13 +60,13 @@ app.core.people = {
         		var gainedPoints = utils.randomIntFromInterval(10,20);
 	            app.data.score += gainedPoints;
 	            people.frame = 1;
-	            var gainedPointsText = game.add.text(game.camera.width - 220,10 , '+ ' + gainedPoints, { font: '34px Arial', fill: 'cyan' });
-	            gainedPointsText.alpha = 0;
-	            var tween = game.add.tween(gainedPointsText).to( { alpha: 1 }, 400, "Linear", true);
+	            // var gainedPointsText = game.add.text(game.camera.width - 220,10 , '+ ' + gainedPoints, { font: '34px Arial', fill: 'cyan' });
+	            // gainedPointsText.alpha = 0;
+	            // var tween = game.add.tween(gainedPointsText).to( { alpha: 1 }, 400, "Linear", true);
 	        }else{
 	        	console.log('clic gentil');
 	            if (app.data.player.hp === 1) {
-	                game.state.start('menu');
+	                game.state.start('loose');
 	            };
 	            app.data.player.hp -= 1;
                 //
@@ -135,14 +135,14 @@ app.core.people = {
         var peopleArea       = app.data.peopleArea,
             peopleAreaWidth  = peopleArea.width,
             peopleAreaHeight = peopleArea.height,
-            peopleNb         = /*Math.floor(Math.random() * 6) + 1*/ 2
+            peopleNb         = /*Math.floor(Math.random() * 6) + 1*/ 2,
             people = null,
 
             random_height    = 0,
             random_width     = 0;
 
-            randomSpritePrev = Math.floor((Math.random() * 7) ); 
-            randomSpriteNext = Math.floor((Math.random() * 7) ); 
+            randomSpritePrev = Math.floor((Math.random() * 12) ); 
+            randomSpriteNext = Math.floor((Math.random() * 12) ); 
 
         for(var i = 0; i<peopleNb; i++ ){
 
@@ -153,7 +153,7 @@ app.core.people = {
             }else {
                 if (randomSpritePrev == randomSpriteNext) {
 
-                    randomSpriteNext = Math.floor((Math.random() * 7) );
+                    randomSpriteNext = Math.floor((Math.random() * 12) );
 
                 };
                 people = app.data.peopleGroup.create(game.world.width*.5, game.world.height-this.height, 'people'+randomSpriteNext );
