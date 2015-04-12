@@ -49,9 +49,21 @@ app.core.people = {
         };
         people.inputEnabled = false;
 
+        people.alpha = 1;
+
+        var test = game.add.tween(people).to( { alpha: 0 }, 400, "Linear", true);
+
+        //console.log(people.destroy());
+
+        test.onComplete.add(function(){
+            people.destroy()
+        });
+
+
+
         this.updateScore;
 
-        people.destroy();
+        //people.destroy();
 
 
     },
@@ -171,11 +183,24 @@ app.core.people = {
             if(app.data.score < 0){
                 app.data.score = 0;
             }
+            people.alpha = 1;
+
+            var test1 = game.add.tween(people).to( { alpha: 0 }, 400, "Linear", true);
+
+            //console.log(people.destroy());
+
+            test1.onComplete.add(function(){
+                people.destroy()
+            });
+
+            //game.add.tween(people).to( { alpha: 0 }, 1000, "Linear", true);
+
+
         });
 
         
 
-		app.data.peopleGroup.removeChildren();
+		//app.data.peopleGroup.removeChildren();
         //if (app.data.peopleGroup.isEvil === true) {
          //   app.data.score -= 10;
         //}
